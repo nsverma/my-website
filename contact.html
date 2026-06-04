@@ -235,6 +235,23 @@
       flex-shrink: 0;
     }
 
+    .field input.invalid,
+    .field textarea.invalid {
+      border-color: #f87171;
+      background: rgba(248, 113, 113, 0.05);
+    }
+
+    .field input.invalid:focus,
+    .field textarea.invalid:focus {
+      box-shadow: 0 0 0 3px rgba(248, 113, 113, 0.15);
+    }
+
+    .error-text {
+      font-size: 0.78rem;
+      color: #f87171;
+      min-height: 1em;
+    }
+
     @media (max-width: 520px) {
       .card { padding: 2rem 1.5rem; }
       .form-row { grid-template-columns: 1fr; }
@@ -289,12 +306,42 @@
   </div>
 
   <script>
+    function showError(id, msg) {
+      const el = document.getElementById(id);
+      el.classList.add('invalid');
+      let err = el.parentElement.querySelector('.error-text');
+      if (!err) {
+        err = document.createElement('span');
+        err.className = 'error-text';
+        el.parentElement.appendChild(err);
+      }
+      err.textContent = msg;
+    }
+
+    function clearError(id) {
+      const el = document.getElementById(id);
+      el.classList.remove('invalid');
+      const err = el.parentElement.querySelector('.error-text');
+      if (err) err.textContent = '';
+    }
+
+    ['name', 'email', 'message'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => clearError(id));
+    });
+
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('email').value.trim();
       const message = document.getElementById('message').value.trim();
-      if (!name || !email || !message) return;
+
+      let valid = true;
+      if (!name) { showError('name', 'Name is required.'); valid = false; }
+      if (!email) { showError('email', 'Email is required.'); valid = false; }
+      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { showError('email', 'Enter a valid email.'); valid = false; }
+      if (!message) { showError('message', 'Message is required.'); valid = false; }
+      if (!valid) return;
+
       document.getElementById('successMsg').classList.add('show');
       this.reset();
       setTimeout(() => document.getElementById('successMsg').classList.remove('show'), 4000);
