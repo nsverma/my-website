@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Sudhanshu Verma</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --border: #1e1e2e;
+      --accent: #7c6af7;
+      --accent-glow: rgba(124, 106, 247, 0.3);
+      --accent-2: #f472b6;
+      --text: #e8e8f0;
+      --muted: #6b6b80;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124, 106, 247, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 90%, rgba(244, 114, 182, 0.06) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card {
+      position: relative;
+      z-index: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 3.5rem;
+      max-width: 680px;
+      width: 100%;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 32px 80px rgba(0, 0, 0, 0.6),
+        0 0 60px rgba(124, 106, 247, 0.05);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 10%; right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), var(--accent-2), transparent);
+      border-radius: 50%;
+      opacity: 0.7;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.83rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover { color: var(--accent); }
+
+    .back-link svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #fff 30%, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.4rem;
+    }
+
+    .subheading {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+      line-height: 1.6;
+    }
+
+    .divider {
+      width: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 2px;
+      margin-bottom: 2rem;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .field label {
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .field input,
+    .field textarea {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      width: 100%;
+    }
+
+    .field input::placeholder,
+    .field textarea::placeholder {
+      color: #3a3a50;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--accent);
+      background: rgba(124, 106, 247, 0.05);
+      box-shadow: 0 0 0 3px rgba(124, 106, 247, 0.12);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 140px;
+      line-height: 1.6;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .submit-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: linear-gradient(135deg, var(--accent), #6054d4);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.85rem 2rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 20px var(--accent-glow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      margin-top: 0.5rem;
+      width: 100%;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px var(--accent-glow);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Success state */
+    .success-msg {
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(124, 106, 247, 0.08);
+      border: 1px solid rgba(124, 106, 247, 0.25);
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      font-size: 0.9rem;
+      color: var(--accent);
+      margin-top: 1rem;
+    }
+
+    .success-msg.show { display: flex; }
+
+    .success-msg svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 520px) {
+      .card { padding: 2rem 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <a class="back-link" href="index.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+      Back to Home
+    </a>
+
+    <h1 class="heading">Get in Touch</h1>
+    <p class="subheading">Have a project in mind or just want to say hi? I'd love to hear from you.</p>
+    <div class="divider"></div>
+
+    <form class="form" id="contactForm" novalidate>
+      <div class="form-row">
+        <div class="field">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Jane Doe" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="jane@example.com" required />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Tell me what's on your mind..." required></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 2 11 13M22 2 15 22l-4-9-9-4 20-7z"/>
+        </svg>
+        Send Message
+      </button>
+
+      <div class="success-msg" id="successMsg">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        Message sent! I'll get back to you soon.
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if (!name || !email || !message) return;
+      document.getElementById('successMsg').classList.add('show');
+      this.reset();
+      setTimeout(() => document.getElementById('successMsg').classList.remove('show'), 4000);
+    });
+  </script>
+</body>
+</html>
